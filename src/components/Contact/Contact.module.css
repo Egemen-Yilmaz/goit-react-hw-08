@@ -1,0 +1,55 @@
+.item {
+  list-style: none;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  display: grid;
+  gap: 12px;
+}
+
+.contact {
+  display: grid;
+  gap: 8px;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: #4f46e5;
+}
+
+.name {
+  font-weight: 600;
+  margin: 0;
+}
+
+.number {
+  margin: 0;
+  color: #475569;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteButton {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #fecaca;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background: #fecaca;
+}
