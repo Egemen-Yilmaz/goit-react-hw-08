@@ -22,7 +22,10 @@ export const register = createAsyncThunk(
             setAuthHeader(response.data.token);
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
+            // Prefer server-provided error info when available
+            const serverData = e.response?.data;
+            const msg = serverData?.message ?? serverData ?? e.message;
+            return thunkAPI.rejectWithValue(msg);
         }
     }
 );
@@ -35,7 +38,9 @@ export const logIn = createAsyncThunk(
             setAuthHeader(response.data.token);
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
+            const serverData = e.response?.data;
+            const msg = serverData?.message ?? serverData ?? e.message;
+            return thunkAPI.rejectWithValue(msg);
         }
     }
 );
@@ -47,7 +52,9 @@ export const logOut = createAsyncThunk(
             await axios.post('/users/logout');
             clearAuthHeader();
         } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
+            const serverData = e.response?.data;
+            const msg = serverData?.message ?? serverData ?? e.message;
+            return thunkAPI.rejectWithValue(msg);
         }
     }
 );
@@ -67,7 +74,9 @@ export const refreshUser = createAsyncThunk(
             const response = await axios.get('/users/current');
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
+            const serverData = e.response?.data;
+            const msg = serverData?.message ?? serverData ?? e.message;
+            return thunkAPI.rejectWithValue(msg);
         }
     }
 );

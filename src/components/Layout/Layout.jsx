@@ -1,10 +1,13 @@
-import { AppBar } from '../AppBar/AppBar';
+import AppBar from '../AppBar/AppBar';
+import styles from '../../App.module.css';
 
-export const Layout = ({ children }) => {
+const Layout = ({ children }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <AppBar />
       <main>{children}</main>
     </div>
   );
 };
+
+export default Layout;

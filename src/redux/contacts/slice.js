@@ -1,6 +1,7 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { addContact, deleteContact, fetchContacts } from './contactsOps';
-import { selectNameFilter } from './filtersSlice';
+import { createSlice } from '@reduxjs/toolkit';
+import { addContact, deleteContact, fetchContacts } from './operations';
+import { logOut } from '../auth/operations';
+
 
 // Başlangıç durumu - Sadece contacts için!
 const initialState = {
@@ -56,23 +57,17 @@ const contactsSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             });
+            // when the user logs out we should clear contacts from memory
+            builder.addCase(logOut.fulfilled, state => {
+                state.items = [];
+                state.loading = false;
+                state.error = null;
+            });
     },
 });
 
-// Selector fonksiyonu - State'ten contacts listesini alır
-// state.contacts Redux store'daki contacts slice'ı
-// state.contacts.items ise içindeki items dizisi
-export const selectContacts = (state) => state.contacts.items;
-export const selectLoading = (state) => state.contacts.loading;
-export const selectError = (state) => state.contacts.error;
-
-export const selectFilteredContacts = createSelector(
-    [selectContacts, selectNameFilter],
-    (contacts, nameFilter) =>
-        contacts.filter(contact =>
-            contact.name.toLowerCase().includes(nameFilter.toLowerCase())
-        )
-);
+// Reducer exported from selectors file. Selectors live in
+// src/redux/contacts/selectors.js to match project structure.
 
 // Reducer'ı default export olarak dışa aktarıyoruz
 // Bu, store.js'te kullanılacak
